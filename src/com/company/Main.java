@@ -1,7 +1,6 @@
 package com.company;
 
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -63,6 +62,10 @@ public class Main {
                         break;
                 } break;
 
+            case "note" :
+                Note.showNote();
+                break;
+
 
             default:
                 System.out.println("No such command!");
@@ -77,6 +80,10 @@ public class Main {
         switch (type) {
             case "person": // Create person
                 Person.createPerson();
+                break;
+
+            case "note" :
+                Note.createNote();
                 break;
 
             default:

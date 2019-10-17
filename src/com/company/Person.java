@@ -1,28 +1,22 @@
 package com.company;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class Person {
+public class Person extends Record {
 
-    static Scanner scanner = new Scanner(System.in);
     static ArrayList<Person> personArrayList = new ArrayList<>(); // Array of created persons
 
-   private static int counter = -1;
-    private int id;
     private String name;
     private String surname;
     private String phone;
+    private String email;
 
-    public Person() {
-        counter++;
-        this.id = counter;
+    public String getEmail() {
+        return email;
     }
 
-    public int getId() {
-        return id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -49,19 +43,34 @@ public class Person {
         this.phone = phone;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + getId() +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     static void createPerson() { // Create new person
         Person p = new Person();
         System.out.println("Input name:");
-        String name = scanner.next();
+        String name = Main.scanner.next();
         p.setName(name);
 
         System.out.println("Input surname:");
-        String surname = scanner.next();
+        String surname = Main.scanner.next();
         p.setSurname(surname);
 
         System.out.println("Input phone number:");
-        String phone = scanner.next();
+        String phone = Main.scanner.next();
         p.setPhone(phone);
+
+        System.out.println("Input e-mail:");
+        String email = Main.scanner.next();
+        p.setEmail(email);
 
         System.out.println("Person created!" + "\n");
 
@@ -69,24 +78,22 @@ public class Person {
     }
 
     static void showPersonOne(int id) { // Show persons data by ID
-        Person p = personArrayList.get(id);
+        Record p = personArrayList.get(id);
 
-        System.out.println("ID: " + p.getId());
-        System.out.println("Name: " + p.getName());
-        System.out.println("Surname: " + p.getSurname());
-        System.out.println("Phone: " + p.getPhone());
+//        System.out.println("ID: " + p.getId());
+//        System.out.println("Name: " + p.getName());
+//        System.out.println("Surname: " + p.getSurname());
+//        System.out.println("Phone: " + p.getPhone());
+//        System.out.println("E-mail: " + p.getEmail());
+
+        System.out.println(p);
 
     }
 
     static void showPersonAll() {
         System.out.println("All created persons list:\n");
 
-        personArrayList.stream().forEach(personArrayList -> System.out.println("ID: " + personArrayList.getId() + "\n"
-                + "Name: " + personArrayList.getName() +
-                "\n" + "Surname: " + personArrayList.getSurname()
-                + "\n" + "Phone number: "
-                + personArrayList.getPhone()
-                + "\n\n"));
+        personArrayList.stream().forEach(personArrayList -> System.out.println(personArrayList.toString()));
     }
 
 }
