@@ -10,17 +10,19 @@ public class Person {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Person> personArrayList = new ArrayList<>(); // Array of created persons
 
+   private static int counter = -1;
     private int id;
     private String name;
     private String surname;
     private String phone;
 
-    public int getId() {
-        return id;
+    public Person() {
+        counter++;
+        this.id = counter;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -69,6 +71,7 @@ public class Person {
     static void showPersonOne(int id) { // Show persons data by ID
         Person p = personArrayList.get(id);
 
+        System.out.println("ID: " + p.getId());
         System.out.println("Name: " + p.getName());
         System.out.println("Surname: " + p.getSurname());
         System.out.println("Phone: " + p.getPhone());
@@ -78,7 +81,8 @@ public class Person {
     static void showPersonAll() {
         System.out.println("All created persons list:\n");
 
-        personArrayList.stream().forEach(personArrayList -> System.out.println("Name: " + personArrayList.getName() +
+        personArrayList.stream().forEach(personArrayList -> System.out.println("ID: " + personArrayList.getId() + "\n"
+                + "Name: " + personArrayList.getName() +
                 "\n" + "Surname: " + personArrayList.getSurname()
                 + "\n" + "Phone number: "
                 + personArrayList.getPhone()
