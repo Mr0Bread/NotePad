@@ -1,9 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
-
 public class Note extends Record {
-    static ArrayList<Note> noteArrayList = new ArrayList<>();
     private String note;
 
     public String getNote() {
@@ -22,16 +19,13 @@ public class Note extends Record {
         this.note = note;
     }
 
-    static void createNote() {
-        Note n = new Note();
+    public void askInfo() {
         System.out.println("Enter your record:");
-        String record = Main.scanner.next();
-        n.setNote(record);
-        noteArrayList.add(n);
-
+        note = Main.scanner.next();
     }
 
-    static void showNote() {
-        noteArrayList.stream().forEach(noteArrayList -> System.out.println(noteArrayList.toString()));
+    @Override
+    public boolean contains(String str) {
+        return note.contains(str);
     }
 }

@@ -1,10 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
-
 public class Person extends Record {
-
-    static ArrayList<Person> personArrayList = new ArrayList<>(); // Array of created persons
 
     private String name;
     private String surname;
@@ -54,46 +50,26 @@ public class Person extends Record {
                 '}';
     }
 
-    static void createPerson() { // Create new person
-        Person p = new Person();
+    @Override
+    public void askInfo() { // Create new person
         System.out.println("Input name:");
-        String name = Main.scanner.next();
-        p.setName(name);
+        name = Main.scanner.next();
 
         System.out.println("Input surname:");
-        String surname = Main.scanner.next();
-        p.setSurname(surname);
+        surname = Main.scanner.next();
 
         System.out.println("Input phone number:");
-        String phone = Main.scanner.next();
-        p.setPhone(phone);
+        phone = Main.scanner.next();
 
         System.out.println("Input e-mail:");
-        String email = Main.scanner.next();
-        p.setEmail(email);
+        email = Main.scanner.next();
 
         System.out.println("Person created!" + "\n");
-
-        personArrayList.add(p);
     }
 
-    static void showPersonOne(int id) { // Show persons data by ID
-        Record p = personArrayList.get(id);
-
-//        System.out.println("ID: " + p.getId());
-//        System.out.println("Name: " + p.getName());
-//        System.out.println("Surname: " + p.getSurname());
-//        System.out.println("Phone: " + p.getPhone());
-//        System.out.println("E-mail: " + p.getEmail());
-
-        System.out.println(p);
-
-    }
-
-    static void showPersonAll() {
-        System.out.println("All created persons list:\n");
-
-        personArrayList.stream().forEach(personArrayList -> System.out.println(personArrayList.toString()));
+    @Override
+    public boolean contains(String str) {
+        return name.contains(str) || surname.contains(str) || phone.contains(str) || email.contains(str);
     }
 
 }
