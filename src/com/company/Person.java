@@ -69,7 +69,11 @@ public class Person extends Record {
 
     @Override
     public boolean contains(String str) {
-        return name.contains(str) || surname.contains(str) || phone.contains(str) || email.contains(str);
+        return name.contains(str)
+                || surname.contains(str)
+                || phone.contains(str)
+                || email.contains(str)
+                || super.contains(str);
     }
 
 }
