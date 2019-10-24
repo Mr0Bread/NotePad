@@ -37,8 +37,12 @@ public class Main {
                     showRecords();
                     break;
 
-                case "search" :
+                case "find":
                     search();
+                    break;
+
+                case "delete":
+                    delete();
                     break;
 
                 default:
@@ -48,11 +52,28 @@ public class Main {
         }
     }
 
+    private static void delete() {
+        int size = recordsArrayList.size();
+        System.out.println("Enter ID of record you want to delete: ");
+        int ID = scanner.nextInt();
+
+        for (int i = 0; i < size; i++) {
+            Record r = recordsArrayList.get(i);
+
+            if (r.getId() == ID) {
+                recordsArrayList.remove(i);
+                break;
+            }
+        }
+    }
+
     private static void search() {
         System.out.println("Enter search word: ");
         String search = scanner.next();
-        for (int i = 0; i < recordsArrayList.size(); i++) {
-
+        for (Record r : recordsArrayList) {
+            if (r.contains(search)) {
+                System.out.println(r);
+            }
         }
     }
 
@@ -65,12 +86,16 @@ public class Main {
                 createRecord(new Person());
                 break;
 
-            case "note" :
+            case "note":
                 createRecord(new Note());
                 break;
 
-            case "alarm" :
+            case "alarm":
                 createRecord(new Alarm());
+                break;
+
+            case "remind":
+                createRecord(new Reminder());
                 break;
 
             default:
