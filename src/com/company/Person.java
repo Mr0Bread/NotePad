@@ -52,17 +52,11 @@ public class Person extends Record {
 
     @Override
     public void askInfo() { // Create new person
-        System.out.println("Input name:");
-        name = Main.scanner.next();
 
-        System.out.println("Input surname:");
-        surname = Main.scanner.next();
-
-        System.out.println("Input phone number:");
-        phone = Main.scanner.next();
-
-        System.out.println("Input e-mail:");
-        email = Main.scanner.next();
+        name = Asker.askString("Input name: ");
+        surname = Asker.askString( "Input surname: ");
+        phone = Asker.askString("Input phone number: ");
+        email = Asker.askString("Input e-mail: ");
 
         System.out.println("Person created!" + "\n");
     }

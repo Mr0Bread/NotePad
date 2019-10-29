@@ -1,11 +1,9 @@
 package com.company;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-public class Reminder extends Alarm {
+public class Reminder extends Alarm implements Expirable {
     private LocalDate date;
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy:MM:dd");
 
     public LocalDate getDate() {
         return date;
@@ -18,20 +16,23 @@ public class Reminder extends Alarm {
     @Override
     public String toString() {
         return "Reminder{" + "id=" + getId() + '\'' + "note=" + getNote() + '\'' + "time=" + getTime() + '\'' +
-                "date=" + date.format(FORMATTER) +
+                "date=" + date.format(Asker.DATE_FORMATTER) +
                 '}';
     }
 
     @Override
     public void askInfo() {
         super.askInfo();
-        System.out.println("Enter date to remind");
-        String dateString = Main.scanner.next();
-        date = LocalDate.parse(dateString, FORMATTER);
+        date = Asker.askDate("Enter date(yyyy:MM:dd): ");
     }
 
     @Override
     public boolean contains(String str) {
-        return super.contains(str) || date.format(FORMATTER).contains("str");
+        return super.contains(str) || date.format(Asker.DATE_FORMATTER).contains("str");
+    }
+
+    @Override
+    public boolean isExpired() {
+        return true;
     }
 }

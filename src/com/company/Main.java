@@ -2,22 +2,16 @@ package com.company;
 
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Main {
 
-    static Scanner scanner = new Scanner(System.in);
-    static ArrayList<Record> recordsArrayList = new ArrayList<>();
+    private static ArrayList<Record> recordsArrayList = new ArrayList<>();
 
     public static void main(String[] args) {
 
-        scanner.useDelimiter("\n");
-
         while (true) {
 
-            System.out.println("Enter command, please:");
-
-            String cmd = scanner.next();
+            String cmd = Asker.askString("Enter command, please: ");
             switch (cmd) { // Command switch
 
                 case "exit":   // Command to exit Main
@@ -45,6 +39,10 @@ public class Main {
                     delete();
                     break;
 
+                case "expired":
+                    listExpiredRecords();
+                    break;
+
                 default:
                     System.out.println("No such command in program!");
 
@@ -52,34 +50,8 @@ public class Main {
         }
     }
 
-    private static void delete() {
-        int size = recordsArrayList.size();
-        System.out.println("Enter ID of record you want to delete: ");
-        int ID = scanner.nextInt();
-
-        for (int i = 0; i < size; i++) {
-            Record r = recordsArrayList.get(i);
-
-            if (r.getId() == ID) {
-                recordsArrayList.remove(i);
-                break;
-            }
-        }
-    }
-
-    private static void search() {
-        System.out.println("Enter search word: ");
-        String search = scanner.next();
-        for (Record r : recordsArrayList) {
-            if (r.contains(search)) {
-                System.out.println(r);
-            }
-        }
-    }
-
     private static void create() {
-        System.out.println("Choose type:");
-        String type = scanner.next();
+        String type = Asker.askString("Choose type: ");
 
         switch (type) {
             case "person": // Create person
@@ -104,17 +76,53 @@ public class Main {
         }
     }
 
-    static String showHelp(String line) { // Method for printing text
+    private static String showHelp(String line) { // Method for printing text
         return line;
     }
 
-    static void showRecords() {
+    private static void showRecords() {
         recordsArrayList.forEach(r -> System.out.println(r.toString()));
     }
 
     private static void createRecord(Record r) {
         r.askInfo();
         recordsArrayList.add(r);
+    }
+
+    private static void delete() {
+        int size = recordsArrayList.size();
+        int ID = Asker.askInt("Enter ID of record you want to delete: ");
+
+        for (int i = 0; i < size; i++) {
+            Record r = recordsArrayList.get(i);
+
+            if (r.getId() == ID) {
+                recordsArrayList.remove(i);
+                break;
+            }
+        }
+    }
+
+    private static void search() {
+        String search = Asker.askString("Enter search word: ");
+        for (Record r : recordsArrayList) {
+            if (r.contains(search)) {
+                System.out.println(r);
+            }
+        }
+    }
+
+    private static void listExpiredRecords() {
+
+        for (Record r : recordsArrayList) {
+
+            if (r instanceof Expirable) {
+                Expirable expirable = (Expirable) r;
+                if (expirable.isExpired()) {
+                    System.out.println(expirable);
+                }
+            }
+        }
     }
 
 }

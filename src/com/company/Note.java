@@ -20,8 +20,7 @@ public class Note extends Record {
     }
 
     public void askInfo() {
-        System.out.println("Enter your record:");
-        note = Main.scanner.next();
+        note = Asker.askString("Enter your record: ");
     }
 
     @Override

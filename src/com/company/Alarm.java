@@ -1,13 +1,12 @@
 package com.company;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
-public class Alarm extends Note {
+public class Alarm extends Note implements Expirable {
     private LocalTime time;
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
-    public LocalTime getTime() {
+
+    LocalTime getTime() {
         return time;
     }
 
@@ -18,22 +17,24 @@ public class Alarm extends Note {
     @Override
     public String toString() {
         return "Alarm{" +
-                "time='" + time.format(FORMATTER) + '\'' +
+                "time='" + time.format(Asker.TIME_FORMATTER) + '\'' +
                 "id=" + getId() + '\'' + "Note=" + getNote() +
                 '}';
     }
 
-
+    @Override
     public void askInfo() {
         super.askInfo();
-        System.out.println("Enter time for your alarm: ");
-        String strTime = Main.scanner.next();
-        time = LocalTime.parse(strTime, FORMATTER);
-
+        time = Asker.askTime("Enter time(HH:mm)");
     }
 
     @Override
     public boolean contains(String str) {
-        return time.format(FORMATTER).contains(str) || super.contains(str);
+        return time.format(Asker.TIME_FORMATTER).contains(str) || super.contains(str);
+    }
+
+    @Override
+    public boolean isExpired() {
+        return LocalTime.now().isAfter(time);
     }
 }
