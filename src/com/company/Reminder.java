@@ -1,9 +1,11 @@
 package com.company;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Reminder extends Alarm implements Expirable {
     private LocalDate date;
+    private boolean dismissedBool;
 
     public LocalDate getDate() {
         return date;
@@ -16,7 +18,7 @@ public class Reminder extends Alarm implements Expirable {
     @Override
     public String toString() {
         return "Reminder{" + "id=" + getId() + '\'' + "note=" + getNote() + '\'' + "time=" + getTime() + '\'' +
-                "date=" + date.format(Asker.DATE_FORMATTER) +
+                "date=" + date.format(Asker.DATE_FORMATTER) + '\'' + "dismissed = " + dismissedBool +
                 '}';
     }
 
@@ -33,6 +35,12 @@ public class Reminder extends Alarm implements Expirable {
 
     @Override
     public boolean isExpired() {
-        return true;
+        LocalDateTime dateTime = LocalDateTime.of(date, getTime());
+        return LocalDateTime.now().isAfter(dateTime);
+    }
+
+    @Override
+    public void dismiss() {
+        dismissedBool = true;
     }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Main {
 
-    private static ArrayList<Record> recordsArrayList = new ArrayList<>();
+    static ArrayList<Record> recordsArrayList = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -43,11 +43,28 @@ public class Main {
                     listExpiredRecords();
                     break;
 
+                case "dismiss":
+                    dismissExpirable();
+                    break;
+
                 default:
                     System.out.println("No such command in program!");
 
             }
         }
+    }
+
+    private static void dismissExpirable() {
+
+        int ID = Asker.askInt("Enter ID of record you want to dismiss: ");
+
+            for (Record r : recordsArrayList) {
+                if (r instanceof Expirable && r.getId() == ID) {
+                    Expirable expirable = (Expirable) r;
+                    expirable.dismiss();
+                }
+            }
+
     }
 
     private static void create() {
